@@ -6,7 +6,7 @@ The app is intentionally small. It is designed for a work process where the user
 
 ## Core behavior
 
-After a valid conversion, the completed entry is automatically selected after a short 0.45-second pause. The operator can therefore type the next code immediately, or remove the whole previous entry with one Backspace press. The `×` button always clears the entry completely.
+After a valid conversion, the entered value stays in place until the operator edits it or presses `×`. This avoids accidental replacement when a worker pauses briefly before the next entry. The `×` button always clears the entry completely.
 
 ### Julian number to FIFO date
 
@@ -67,7 +67,7 @@ The current implementation applies system-bar insets and uses a small vertical a
 | `1.1` | Rebuilt with a new Android version code so update installation is reliable |
 | `1.2` | Added system-bar safe-area handling to prevent overlap with the phone status bar |
 | `1.3` | Shortened completed-entry auto-selection from 0.65 seconds to 0.45 seconds, so the next tire code can be entered sooner |
-| `1.4-experimental.3` | Experimental adaptive layout uses Android IME insets; both conversion modes now open the numeric keyboard for fast number-first entry |
+| `1.4-experimental.4` | Experimental adaptive layout uses Android IME insets; both conversion modes open the numeric keyboard, and automatic post-conversion selection was removed to prevent accidental replacement |
 
 ## Development
 

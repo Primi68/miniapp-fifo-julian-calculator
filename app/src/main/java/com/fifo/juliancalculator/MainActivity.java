@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -49,12 +47,6 @@ public class MainActivity extends Activity {
     private TextView today;
     private FrameLayout workSpace;
     private boolean reverse = false;
-    private final Handler handler = new Handler(Looper.getMainLooper());
-    private final Runnable selectCompletedInput = new Runnable() {
-        @Override public void run() {
-            if (entry.hasFocus() && entry.getText().length() > 0) entry.selectAll();
-        }
-    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -142,7 +134,6 @@ public class MainActivity extends Activity {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override public void afterTextChanged(Editable editable) {
-                handler.removeCallbacks(selectCompletedInput);
                 evaluate(editable.toString());
             }
         });
@@ -227,7 +218,6 @@ public class MainActivity extends Activity {
         }
         LocalDate date = LocalDate.ofYearDay(targetYear, ordinal);
         result.setText(date.getMonthValue() + "/" + String.format(Locale.US, "%02d", date.getDayOfMonth()));
-        scheduleNextEntry();
     }
 
     private void evaluateDate(String value) {
@@ -250,15 +240,9 @@ public class MainActivity extends Activity {
         try {
             LocalDate date = LocalDate.of(ZonedDateTime.now(AUSTIN_ZONE).getYear(), month, day);
             result.setText(String.format(Locale.US, "%03d", date.getDayOfYear()));
-            scheduleNextEntry();
         } catch (DateTimeException ex) {
             error.setText("올바른 월/일을 입력하세요.");
         }
-    }
-
-    private void scheduleNextEntry() {
-        handler.removeCallbacks(selectCompletedInput);
-        handler.postDelayed(selectCompletedInput, 450);
     }
 
     private void showHelp() {

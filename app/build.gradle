@@ -20,8 +20,8 @@ android {
         applicationId 'com.fifo.juliancalculator'
         minSdk 26
         targetSdk 35
-        versionCode 7
-        versionName '1.4-experimental.3'
+        versionCode 8
+        versionName '1.4-experimental.4'
     }
 
     buildTypes {
